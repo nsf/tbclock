@@ -77,7 +77,7 @@ static void draw_clock(pixelfield_t &pf, bool seconds=true)
 	int cw, ch;
 	get_clock_dimensions(cw, ch, seconds);
 	int x = (pf.width - cw) / 2;
-	int y = (pf.height - ch) / 2;
+	int y = (pf.height - ch) / 2 + 1;
 
 	int hour[2];
 	int minute[2];
