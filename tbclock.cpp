@@ -98,11 +98,14 @@ int main(int argc, char **argv)
 {
 	tb_init();
 	tb_clear();
-	pixelfield_t pf(tb_width(), tb_height(), 2, 1);
+	int w, h;
+	get_clock_dimensions(w, h);
+	unsigned int tbw = tb_width();
+	unsigned int tbh = tb_height();
+	pixelfield_t pf(tbw, tbh, tbw / w, (tbw / w) / 2);
 	draw_clock(pf);
 	tb_present();
 
-	int w, h;
 
 	struct tb_event ev;
 	while (1) {
@@ -115,17 +118,14 @@ int main(int argc, char **argv)
 					return 0;
 				}
 			case TB_EVENT_RESIZE:
-			{
-				get_clock_dimensions(w, h);
-				unsigned int tbw = tb_width();
-				unsigned int tbh = tb_height();
-				pf.resize(tbw, tbh, tbw / w, (tbw / w) / 2);
 				tb_clear();
+				get_clock_dimensions(w, h);
+				tbw = tb_width();
+				tbh = tb_height();
+				pf.resize(tbw, tbh, tbw / w, (tbw / w) / 2);
 				draw_clock(pf);
 				tb_present();
 				break;
-			}
-
 			}
 		} else {
 			tb_clear();
