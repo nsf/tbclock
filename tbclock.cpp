@@ -9,8 +9,14 @@ struct pixelfield_t {
 	int pixel_height;
 
 	pixelfield_t(int w, int h, int pw, int ph):
-		width(w / pw), height(h / ph), pixel_width(pw), pixel_height(ph)
+		width(0), height(0), pixel_width(pw), pixel_height(ph)
 	{
+		if (!pixel_width)
+			pixel_width = 1;
+		if (!pixel_height)
+			pixel_height = 1;
+		width = w / pixel_width;
+		height = h / pixel_height;
 	}
 
 	void plot_pixel(int x, int y, uint16_t color)
@@ -34,6 +40,10 @@ struct pixelfield_t {
 	{
 		pixel_width = pw;
 		pixel_height = ph;
+		if (!pixel_width)
+			pixel_width = 1;
+		if (!pixel_height)
+			pixel_height = 1;
 		width = w / pixel_width;
 		height = h / pixel_height;
 	}
